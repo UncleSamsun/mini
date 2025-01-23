@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io_groom.mini.mapper.AdminMapper">
+
+    <!-- SELECT -->
+    <select id="selectAll" resultType="io_groom.mini.domain.Admin">
+        SELECT * FROM admins
+        ORDER BY admin_seq desc
+    </select>
+
+    <select id="selectById" parameterType="long" resultType="io_groom.mini.domain.Admin">
+        SELECT * FROM admins WHERE admin_seq = #{Admin.adminSeq}
+    </select>
+
+    <!-- INSERT -->
+    <insert id="insert" parameterType="io_groom.mini.domain.Admin">
+        INSERT INTO admins (admin_id,  admin_pw, admin_name, reg_seq)
+        VALUES (#{Admin.adminId}, #{Admin.adminPw}, #{Admin.adminName}, #{Admin.regSeq})
+    </insert>
+
+    <!-- UPDATE -->
+    <update id="update" parameterType="io_groom.mini.domain.Admin">
+        UPDATE admins
+        SET admin_name = #{Admin.adminName}, admin_id = #{Admin.adminId} , admin_pw = #{Admin.adminPw}
+        WHERE admin_seq = #{Admin.adminSeq}
+    </update>
+
+    <!-- UPDATE -->
+    <update id="updateUseYn" parameterType="io_groom.mini.domain.Admin">
+        UPDATE videos
+        SET use_yn = #{Admin.useYn}
+        WHERE admin_seq = #{Admin.adminSeq}
+    </update>
+
+    <!-- DELETE -->
+    <delete id="delete" parameterType="long">
+        DELETE FROM admins WHERE admin_seq = #{Admin.adminSeq}
+    </delete>
+
+</mapper>

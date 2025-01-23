@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io_groom.mini.mapper.VideoMapper">
+
+    <!-- SELECT -->
+    <select id="selectIndex" resultType="io_groom.mini.domain.Video">
+        SELECT *
+        FROM videos
+        WHERE publish_yn = 1 AND delete_yn = 'N'
+        ORDER BY video_seq desc
+    </select>
+
+    <!-- SELECT -->
+    <select id="selectAll" resultType="io_groom.mini.domain.Video">
+        SELECT * FROM videos
+        ORDER BY video_seq desc
+    </select>
+
+    <select id="selectById" parameterType="long" resultType="io_groom.mini.domain.Video">
+        SELECT * FROM videos WHERE video_seq = #{videoSeq}
+    </select>
+
+    <!-- INSERT -->
+    <insert id="insert" parameterType="io_groom.mini.domain.Video">
+        INSERT INTO videos (video,  video_thumnail, member_seq)
+        VALUES (#{Video.video}, #{Video.videoThumnail}, #{Video.memberSeq})
+    </insert>
+
+    <!-- UPDATE -->
+    <update id="update" parameterType="io_groom.mini.domain.Video">
+        UPDATE videos
+        SET video = #{Video.video}, video_thumnail = #{Video.videoThumnail}
+        WHERE video_seq = #{Video.videoSeq}
+    </update>
+
+    <!-- UPDATE -->
+    <update id="updatePublishYn" parameterType="io_groom.mini.domain.Video">
+        UPDATE videos
+        SET publish_yn = #{Video.publishYn}
+        WHERE video_seq = #{Video.videoSeq}
+    </update>
+
+    <!-- UPDATE -->
+    <update id="updateDeleteYn" parameterType="io_groom.mini.domain.Video">
+        UPDATE videos
+        SET delete_yn = #{Video.deleteYn}
+        WHERE video_seq = #{Video.videoSeq}
+    </update>
+
+    <!-- DELETE -->
+    <delete id="delete" parameterType="long">
+        DELETE FROM videos WHERE video_seq = #{Video.videoSeq}
+    </delete>
+
+</mapper>

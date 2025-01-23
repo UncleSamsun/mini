@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io_groom.mini.mapper.MemberMapper">
+    <!-- SELECT -->
+    <select id="selectAll" resultType="io_groom.mini.domain.Member">
+        SELECT * FROM members
+        ORDER BY member_seq desc
+    </select>
+
+    <select id="selectById" parameterType="long" resultType="io_groom.mini.domain.Member">
+        SELECT * FROM members WHERE member_seq = #{Member.memberSeq}
+    </select>
+
+    <!-- INSERT -->
+    <insert id="insert" parameterType="io_groom.mini.domain.Member">
+        INSERT INTO members (member_id, member_pw, member_nick, reg_seq)
+        VALUES (#{Member.memberId}, #{Member.memberPw}, #{Member.memberNick}, #{Member.regSeq})
+    </insert>
+
+    <!-- UPDATE -->
+    <update id="update" parameterType="io_groom.mini.domain.Member">
+        UPDATE members
+        SET member_nick = #{Member.memberNick}, member_id = #{Member.memberId} , member_pw = #{Member.memberPw}
+        WHERE member_seq = #{Member.memberSeq}
+    </update>
+
+    <!-- UPDATE -->
+    <update id="updateUseYn" parameterType="io_groom.mini.domain.Member">
+        UPDATE members
+        SET use_yn = #{Member.useYn}
+        WHERE member_seq = #{Member.memberSeq}
+    </update>
+
+    <!-- DELETE -->
+    <delete id="delete" parameterType="long">
+        DELETE FROM members WHERE member_seq = #{Member.memberSeq}
+    </delete>
+
+</mapper>
